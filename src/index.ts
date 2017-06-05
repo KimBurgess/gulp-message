@@ -39,36 +39,36 @@ interface LoggerOptions {
 }
 
 /**
- * Create a styled logger with a predfined prefix.
+ * Create a styled, prefixed logger.
  */
 const logger = (opts: LoggerOptions) => (message: string) => {
-    const m = opts.style ? [message, opts.style] as Chunk : message;
-    const p = opts.prefix || '';
-    const w = opts.writer || util.log;
-    w(flatten(p, m));
+    const msg = opts.style ? [message, opts.style] as Chunk : message;
+    const pre = opts.prefix || '';
+    const log = opts.writer || util.log;
+    log(flatten(pre, msg));
 };
 
 /**
- * Append an error message to the gulp output.
+ * Emit an error message.
  */
 export const error = logger({
     prefix: ['ERROR', chalk.white.bgRed]
 });
 
 /**
- * Append a warning message to the gulp output.
+ * Emit a warning message.
  */
 export const warn = logger({
     prefix: ['WARNING', chalk.black.bgYellow]
 });
 
 /**
- * Append an info message to the gulp output.
+ * Emit an info message.
  */
 export const info = logger({});
 
 /**
- * Append an info message to the gulp output.
+ * Emit a debug message.
  */
 export const debug = logger({
     prefix: '→',
