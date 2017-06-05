@@ -38,7 +38,7 @@ const logger = (opts: LoggerOptions) => (message: string) => {
  * Append an error message to the gulp output.
  */
 export const error = logger({
-    prefix: ['ERROR', chalk.black.bgRed]
+    prefix: ['ERROR', chalk.white.bgRed]
 });
 
 /**
@@ -57,5 +57,6 @@ export const info = logger({});
  * Append an info message to the gulp output.
  */
 export const debug = logger({
+    prefix: '→',
     style: chalk.dim
 });
