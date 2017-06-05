@@ -1,6 +1,9 @@
 import * as util from 'gulp-util';
 import * as chalk from 'chalk';
 
+/**
+ * An chunk of text forming part of an overall log message.
+ */
 type Chunk = [string, chalk.ChalkChain] | string;
 
 /**
@@ -15,14 +18,24 @@ const flatten = (...c: Chunk[]) => c.map(render)
                                     .filter((x) => x.length)
                                     .join(' ');
 
-/**
- * Append a message to the gulp output.
- */
-const log = (...message: Chunk[]) => util.log(flatten(...message));
-
 interface LoggerOptions {
+    /**
+     * Optional prefix to prepend to all outgoing messages.
+     */
     prefix?: Chunk;
+
+    /**
+     * Style to be applied to the log message itself. If ommitted the defualt
+     * console style will be applied.
+     */
     style?: chalk.ChalkChain;
+
+    /**
+     * The log writer that handles output of the rendered message. This can
+     * mostly be ignored unless you'd like to redirect output to somewhere
+     * other than the stadard gulp output.
+     */
+    writer?: (message: string) => void;
 }
 
 /**
@@ -31,7 +44,8 @@ interface LoggerOptions {
 const logger = (opts: LoggerOptions) => (message: string) => {
     const m = opts.style ? [message, opts.style] as Chunk : message;
     const p = opts.prefix || '';
-    log(p, m);
+    const w = opts.writer || util.log;
+    w(flatten(p, m));
 };
 
 /**
