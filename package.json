@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/KimBurgess/gulp-message#readme",
   "dependencies": {
+    "chalk": "^1.1.3",
     "gulp-util": "^3.0.8"
   },
   "devDependencies": {
