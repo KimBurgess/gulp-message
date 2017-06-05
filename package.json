@@ -1,0 +1,44 @@
+{
+  "name": "gulp-message",
+  "version": "1.0.0",
+  "description": "ERROR / WARNING / INFO / DEBUG message output for your gulp tasks",
+  "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KimBurgess/gulp-message.git"
+  },
+  "keywords": [
+    "gulp",
+    "gulp-plugin",
+    "typescript"
+  ],
+  "author": "Kim Burgess <kim@simple.industries>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KimBurgess/gulp-message/issues"
+  },
+  "homepage": "https://github.com/KimBurgess/gulp-message#readme",
+  "dependencies": {
+    "gulp-util": "^3.0.8"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.5.1",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-tslint": "^8.1.0",
+    "gulp-typescript": "^3.1.7",
+    "merge2": "^1.0.3",
+    "tslint": "^5.4.2",
+    "typescript": "^2.3.4"
+  }
+}
