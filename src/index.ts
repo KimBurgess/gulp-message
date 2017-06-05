@@ -4,25 +4,25 @@ import * as chalk from 'chalk';
 /**
  * An chunk of text forming part of an overall log message.
  */
-type Chunk = [string, chalk.ChalkChain] | string;
+export type MessageChunk = [string, chalk.ChalkChain] | string;
 
 /**
  * Render a message chunk out to a printable string.
  */
-const render = (c: Chunk) => typeof c === 'string' ? c : c[1](c[0]);
+const render = (c: MessageChunk) => typeof c === 'string' ? c : c[1](c[0]);
 
 /**
- * Flatten a collection of message chunks into a single, rendered string.
+ * Flatten a collection of message chunks into a single, printable string.
  */
-const flatten = (...c: Chunk[]) => c.map(render)
-                                    .filter((x) => x.length)
-                                    .join(' ');
+const flatten = (...c: MessageChunk[]) => c.map(render)
+                                           .filter((x) => x.length)
+                                           .join(' ');
 
-interface LoggerOptions {
+export interface LoggerOptions {
     /**
      * Optional prefix to prepend to all outgoing messages.
      */
-    prefix?: Chunk;
+    prefix?: MessageChunk;
 
     /**
      * Style to be applied to the log message itself. If ommitted the defualt
@@ -41,8 +41,8 @@ interface LoggerOptions {
 /**
  * Create a styled, prefixed logger.
  */
-const logger = (opts: LoggerOptions) => (message: string) => {
-    const msg = opts.style ? [message, opts.style] as Chunk : message;
+export const logger = (opts: LoggerOptions) => (message: string) => {
+    const msg = opts.style ? [message, opts.style] as MessageChunk : message;
     const pre = opts.prefix || '';
     const log = opts.writer || util.log;
     log(flatten(pre, msg));
