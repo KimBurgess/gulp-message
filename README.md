@@ -70,5 +70,5 @@ const tableFlip = message.logger({
 })
 
 tableFlip('Breath in, breath out.')
-=> (ノಠ益ಠ)ノ彡┻━┻ Breath in, breath out.
+=> '(ノಠ益ಠ)ノ彡┻━┻ Breath in, breath out.'
 ```
