@@ -37,5 +37,32 @@ gulp.task('foo', () => {
 
 ## API
 
+### message.error(string)
+
+Emit an error message.
+
+### message.warn(string)
+
+Emit an warning message.
+
+### message.info(string)
+
+Emit an info message.
+
+### message.debug(string)
+
+Emit an debug message.
+
+### logger(opts)
+
+Create a custom log emitter.
+
+Option  | Description                                       | Default
+------- | ------------------------------------------------- | ---------
+prefix  | A prefix to append to all outgoing messages - either a string, or [string, style] tuple    | ``
+style   | The style to apply to the message body            | none
+writer  | The log message emitter                           | `gutil.log`
+
+
 
 
