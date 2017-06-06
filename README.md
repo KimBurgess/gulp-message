@@ -9,11 +9,11 @@ Emit clean, readable log messages from gulp tasks
 
 ## Usage
 
-### Get the package.
+### 1. Get the package
 
     npm install --save gulp-message
 
-### Import it.
+### 2. Import it
 
 Javascript:
 ```javascript
@@ -26,43 +26,49 @@ import * as message from 'gulp-message';
 ```
 *Types are bundled with the published package and will be automatically imported.*
 
-### Use it in your gulp tasks
+### 3. Use it in your gulp tasks
 
-```
+```javascript
 gulp.task('foo', () => {
-    message.warn('Well that's not quite right...');
+    message.warn(`Well that's not quite right...`);
 });
 ```
 
 
 ## API
 
-### message.error(string)
+### `message.error(string)`
 
 Emit an error message.
 
-### message.warn(string)
+### `message.warn(string)`
 
 Emit an warning message.
 
-### message.info(string)
+### `message.info(string)`
 
 Emit an info message.
 
-### message.debug(string)
+### `message.debug(string)`
 
 Emit an debug message.
 
-### logger(opts)
+### `logger(opts)`
 
 Create a custom log emitter.
 
 Option  | Description                                       | Default
 ------- | ------------------------------------------------- | ---------
-prefix  | A prefix to append to all outgoing messages - either a string, or [string, style] tuple    | ``
+prefix  | A prefix to append to all outgoing messages - either a string, or `[string, style]` tuple    | ''
 style   | The style to apply to the message body            | none
 writer  | The log message emitter                           | `gutil.log`
 
+Example:
+```javascript
+const tableFlip = message.logger({
+    prefix: '(ノಠ益ಠ)ノ彡┻━┻'
+})
 
-
-
+tableFlip('Breath in, breath out.')
+=> (ノಠ益ಠ)ノ彡┻━┻ Breath in, breath out.
+```
