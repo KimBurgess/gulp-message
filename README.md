@@ -1,6 +1,6 @@
 # gulp-message
 
-[![Build Status](https://travis-ci.org/acaprojects/skype-native.svg?branch=master)](https://travis-ci.org/acaprojects/gulp-message)
+[![Build Status](https://travis-ci.org/acaprojects/gulp-message.svg?branch=master)](https://travis-ci.org/acaprojects/gulp-message)
 [![Code Climate](https://codeclimate.com/github/acaprojects/gulp-message/badges/gpa.svg)](https://codeclimate.com/github/acaprojects/gulp-message)
 [![Dependencies Status](https://david-dm.org/acaprojects/gulp-message/status.svg)](https://david-dm.org/acaprojects/gulp-message)
 [![npm version](https://badge.fury.io/js/gulp-message.svg)](https://badge.fury.io/js/gulp-message)
