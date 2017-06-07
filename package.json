@@ -1,6 +1,6 @@
 {
   "name": "gulp-message",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Emit clean, readable log messages from gulp tasks",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
