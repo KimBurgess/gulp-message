@@ -12,21 +12,17 @@ export type MessageStyle = (x: string) => string;
 export type MessageChunk = [string, MessageStyle];
 
 /**
+ * Transform a chunk that may be a standalone stream into a MessageChunk.
+ */
+const createChunk: ((x: string | MessageChunk) => MessageChunk) = (x) =>
+        typeof x === 'string' ? [x, chalk.reset] : x;
+
+/**
  * Render a collection of message chunks into a single, printable string.
  */
 const render = (...c: MessageChunk[]) => c.map(([msg, style]) => style(msg))
                                           .filter((x) => x.length)
                                           .join(' ');
-/**
- * Default styling function if not specified.
- */
-const defaultStyle = (x: string) => x;
-
-/**
- * Transform a chunk that may be a standalone stream into a MessageChunk.
- */
-const createChunk: ((x: string | MessageChunk) => MessageChunk) = (x) =>
-        typeof x === 'string' ? [x, defaultStyle] : x;
 
 export interface LoggerOptions {
     /**
@@ -54,7 +50,7 @@ export interface LoggerOptions {
 export const logger = (opts: LoggerOptions) => (message: string) => {
     const chunks = [
         opts.prefix || '',
-        [message, opts.style || defaultStyle]
+        [message, opts.style || chalk.reset]
     ].map(createChunk);
 
     (opts.writer || util.log)(render(...chunks));
