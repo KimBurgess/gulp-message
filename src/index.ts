@@ -2,33 +2,43 @@ import * as util from 'gulp-util';
 import * as chalk from 'chalk';
 
 /**
- * An chunk of text forming part of an overall log message.
+ * Message styler (usually a chalk function).
  */
-export type MessageChunk = [string, chalk.ChalkChain] | string;
+export type MessageStyle = (x: string) => string;
 
 /**
- * Render a message chunk out to a printable string.
+ * A chunk of text forming part of an overall log message.
  */
-const render = (c: MessageChunk) => typeof c === 'string' ? c : c[1](c[0]);
+export type MessageChunk = [string, MessageStyle];
 
 /**
- * Flatten a collection of message chunks into a single, printable string.
+ * Render a collection of message chunks into a single, printable string.
  */
-const flatten = (...c: MessageChunk[]) => c.map(render)
-                                           .filter((x) => x.length)
-                                           .join(' ');
+const render = (...c: MessageChunk[]) => c.map(([msg, style]) => style(msg))
+                                          .filter((x) => x.length)
+                                          .join(' ');
+/**
+ * Default styling function if not specified.
+ */
+const defaultStyle = (x: string) => x;
+
+/**
+ * Transform a chunk that may be a standalone stream into a MessageChunk.
+ */
+const createChunk: ((x: string | MessageChunk) => MessageChunk) = (x) =>
+        typeof x === 'string' ? [x, defaultStyle] : x;
 
 export interface LoggerOptions {
     /**
      * Optional prefix to prepend to all outgoing messages.
      */
-    prefix?: MessageChunk;
+    prefix?: MessageChunk | string;
 
     /**
      * Style to be applied to the log message itself. If ommitted the defualt
      * console style will be applied.
      */
-    style?: chalk.ChalkChain;
+    style?: MessageStyle;
 
     /**
      * The log writer that handles output of the rendered message. This can
@@ -42,10 +52,12 @@ export interface LoggerOptions {
  * Create a styled, prefixed logger.
  */
 export const logger = (opts: LoggerOptions) => (message: string) => {
-    const msg = opts.style ? [message, opts.style] as MessageChunk : message;
-    const pre = opts.prefix || '';
-    const log = opts.writer || util.log;
-    log(flatten(pre, msg));
+    const chunks = [
+        opts.prefix || '',
+        [message, opts.style || defaultStyle]
+    ].map(createChunk);
+
+    (opts.writer || util.log)(render(...chunks));
 };
 
 /**
